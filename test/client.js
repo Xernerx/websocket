@@ -1,6 +1,6 @@
 /** @format */
 
-import XernerxWebsocket from '../dist/main.js';
+import { XernerxWebsocket } from '../dist/main.js';
 
 const client = new (class WS extends XernerxWebsocket {
 	constructor() {

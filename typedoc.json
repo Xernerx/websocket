@@ -2,10 +2,10 @@
 	"plugin": ["typedoc-github-theme", "typedoc-plugin-extras", "typedoc-plugin-zod"],
 	"theme": "typedoc-github-theme",
 
-	"name": "XERNERX",
+	"name": "XERNERX WEBSOCKET",
 	"entryPoints": ["src/*"],
 	"entryPointStrategy": "expand",
-	"exclude": ["node_modules", "src/main.ts", "src/types"],
+	"exclude": ["node_modules", "src/types"],
 	"readme": "README.md",
 	"gitRevision": "HEAD",
 	"githubPages": true,

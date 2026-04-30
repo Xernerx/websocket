@@ -33,7 +33,7 @@
 		"build": "npm i && npx tsup && npx @arethetypeswrong/cli --pack && npm run docs",
 		"dev": "npm i && npm link && npx tsup --watch",
 		"test": "npm install --engine-strict=true",
-		"pub": "git add . && git commit -m \"type update\" && npm run minor && git push origin main"
+		"pub": "git add . && git commit -m \"type update\" && npm run patch && git push origin main"
 	},
 	"keywords": [
 		"framework"
