@@ -48,7 +48,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ needs.detect-and-build.outputs.lowest-node }}
 
       - name: Install dependencies
         run: npm install
