@@ -2,7 +2,7 @@
 
 import WebSocket from 'ws';
 
-export default class XernerxWebsocket {
+export class XernerxWebsocket {
 	private ws!: WebSocket;
 	private url: string;
 	protected readonly token: string;
