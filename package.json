@@ -40,18 +40,21 @@
 	],
 	"author": "Dummi",
 	"license": "MIT",
-	"packageManager": "pnpm@10.32.0",
+	"packageManager": "npm@10.8.2",
 	"dependencies": {
 		"ws": "^8"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
-		"prettier": "^3.6.2",
 		"@types/ws": "^8.18.1",
+		"prettier": "^3.6.2",
 		"tsup": "^8.5.1",
 		"typedoc-github-theme": "^0.3.1",
 		"typedoc-plugin-extras": "^4.0.1",
 		"typedoc-plugin-zod": "^1.4.2",
 		"typescript": "^6.0.3"
+	},
+	"engines": {
+		"node": ">=10"
 	}
 }
