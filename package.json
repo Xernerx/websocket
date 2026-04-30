@@ -1,0 +1,57 @@
+{
+	"name": "@xernerx/websocket",
+	"publishConfig": {
+		"access": "public"
+	},
+	"version": "0.1.0",
+	"type": "module",
+	"main": "./dist/main.cjs",
+	"module": "./dist/main.js",
+	"types": "./dist/main.d.ts",
+	"description": "Xernerx Websocket",
+	"homepage": "www.xernerx.com",
+	"files": [
+		"src",
+		"dist"
+	],
+	"exports": {
+		"require": {
+			"types": "./dist/main.d.cts",
+			"default": "./dist/main.cjs"
+		},
+		"import": {
+			"types": "./dist/main.d.ts",
+			"default": "./dist/main.js"
+		}
+	},
+	"scripts": {
+		"beta": "npm version prerelease --preid=beta",
+		"patch": "npm version patch",
+		"minor": "npm version minor",
+		"major": "npm version major",
+		"docs": "npx typedoc",
+		"build": "npm i && npx tsup && npx @arethetypeswrong/cli --pack && npm run docs",
+		"dev": "npm i && npm link && npx tsup --watch",
+		"test": "npm install --engine-strict=true",
+		"pub": "git add . && git commit -m \"type update\" && npm run minor && git push origin main"
+	},
+	"keywords": [
+		"framework"
+	],
+	"author": "Dummi",
+	"license": "MIT",
+	"packageManager": "pnpm@10.32.0",
+	"dependencies": {
+		"ws": "^8"
+	},
+	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.18.2",
+		"prettier": "^3.6.2",
+		"@types/ws": "^8.18.1",
+		"tsup": "^8.5.1",
+		"typedoc-github-theme": "^0.3.1",
+		"typedoc-plugin-extras": "^4.0.1",
+		"typedoc-plugin-zod": "^1.4.2",
+		"typescript": "^6.0.3"
+	}
+}
