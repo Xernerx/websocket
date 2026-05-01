@@ -1,6 +1,8 @@
 /** @format */
 
-import WebSocket from 'ws';
+type WSLike = {
+	new (url: string): any;
+};
 
 type PendingRequest = {
 	resolve: (value: any) => void;
@@ -8,9 +10,11 @@ type PendingRequest = {
 };
 
 export class XernerxWebsocket {
-	private ws!: WebSocket;
+	private ws!: any;
 	private url: string;
 	protected readonly token: string;
+
+	private WSImpl: WSLike;
 
 	private ready = false;
 	private connecting: Promise<void> | null = null;
@@ -18,9 +22,16 @@ export class XernerxWebsocket {
 	private requestId = 0;
 	private pending = new Map<number, PendingRequest>();
 
-	constructor({ token, url }: { token: string; url?: string }) {
+	constructor({ token, url, WebSocketImpl }: { token: string; url?: string; WebSocketImpl?: WSLike }) {
 		this.url = url ?? 'wss://ws.xernerx.com';
 		this.token = token;
+
+		// Prefer injected implementation (Node), otherwise use browser native
+		this.WSImpl = WebSocketImpl ?? (globalThis.WebSocket as unknown as WSLike);
+
+		if (!this.WSImpl) {
+			throw new Error('No WebSocket implementation found. Provide WebSocketImpl in Node.');
+		}
 	}
 
 	/* ================= CONNECTION ================= */
@@ -33,13 +44,12 @@ export class XernerxWebsocket {
 		}
 
 		this.connecting = new Promise<void>((resolve, reject) => {
-			this.ws = new WebSocket(this.url);
+			this.ws = new this.WSImpl(this.url);
 
-			this.ws.on('open', async () => {
+			this.ws.onopen = async () => {
 				try {
 					this.setupMessageHandler();
 
-					// authenticate
 					const res = await this.request('auth', {
 						method: 'POST',
 						body: { token: this.token },
@@ -54,22 +64,21 @@ export class XernerxWebsocket {
 				} catch (err) {
 					reject(err);
 				}
-			});
+			};
 
-			this.ws.on('error', (err) => {
+			this.ws.onerror = (err: any) => {
 				reject(err);
-			});
+			};
 
-			this.ws.on('close', () => {
+			this.ws.onclose = () => {
 				this.ready = false;
 				this.connecting = null;
 
-				// reject all pending requests
 				for (const { reject } of this.pending.values()) {
 					reject('Connection closed');
 				}
 				this.pending.clear();
-			});
+			};
 		}).finally(() => {
 			this.connecting = null;
 		});
@@ -78,11 +87,11 @@ export class XernerxWebsocket {
 	}
 
 	private setupMessageHandler() {
-		this.ws.on('message', (data) => {
+		this.ws.onmessage = (event: any) => {
 			let msg: any;
 
 			try {
-				msg = JSON.parse(data.toString());
+				msg = JSON.parse(event.data.toString());
 			} catch {
 				return;
 			}
@@ -98,7 +107,6 @@ export class XernerxWebsocket {
 			if (msg.message) {
 				pending.reject(msg.message);
 			} else {
-				// normalize empty object → null
 				if (Object.keys(msg).length <= 1) {
 					pending.resolve(null);
 				} else {
@@ -106,7 +114,7 @@ export class XernerxWebsocket {
 					pending.resolve(msg);
 				}
 			}
-		});
+		};
 	}
 
 	/* ================= CORE ================= */

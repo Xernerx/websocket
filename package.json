@@ -41,9 +41,6 @@
 	"author": "Dummi",
 	"license": "MIT",
 	"packageManager": "npm@10.9.2",
-	"dependencies": {
-		"ws": "^8"
-	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
 		"@types/ws": "^8.18.1",
