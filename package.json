@@ -40,7 +40,7 @@
 	],
 	"author": "Dummi",
 	"license": "MIT",
-	"packageManager": "npm@10.9.2",
+	"packageManager": "npm@11.11.0",
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
 		"@types/ws": "^8.18.1",
@@ -52,7 +52,7 @@
 		"typescript": "^6.0.3"
 	},
 	"engines": {
-		"node": ">=23"
+		"node": ">=24"
 	},
 	"dependencies": {
 		"@xernerx/terminal": "^1.0.7"
