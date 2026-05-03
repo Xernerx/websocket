@@ -1,5 +1,9 @@
 /** @format */
 
+import { terminal } from '@xernerx/terminal';
+
+const t = terminal.child({ scope: 'WS' });
+
 type WSLike = {
 	new (url: string): any;
 };
@@ -37,9 +41,13 @@ export class XernerxWebsocket {
 	/* ================= CONNECTION ================= */
 
 	public async connect() {
-		if (this.ready) return;
+		if (this.ready) {
+			t.log('Connected to websocket');
+			return;
+		}
 
 		if (this.connecting) {
+			t.info('Connecting to websocket...');
 			return this.connecting;
 		}
 

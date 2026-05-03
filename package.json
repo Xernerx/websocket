@@ -53,5 +53,8 @@
 	},
 	"engines": {
 		"node": ">=23"
+	},
+	"dependencies": {
+		"@xernerx/terminal": "^1.0.7"
 	}
 }

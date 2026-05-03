@@ -12,15 +12,11 @@ const client = new (class WS extends XernerxWebsocket {
 
 await client.connect();
 
-await client
-	.update('virtue', 'guilds', {
-		id: '784094726432489522',
-		mode: 'balanced',
-	})
-	.then(console.log);
+await client.update('virtue', 'guilds', {
+	id: '784094726432489522',
+	mode: 'balanced',
+});
 
-const user = await client
-	.get('virtue', 'users', {
-		id: '123',
-	})
-	.then(console.log);
+const user = await client.get('virtue', 'users', {
+	id: '123',
+});
