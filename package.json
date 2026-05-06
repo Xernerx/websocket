@@ -38,7 +38,7 @@
 	"keywords": [
 		"framework"
 	],
-	"author": "Dummi",
+	"author": "Xernerx Studios",
 	"license": "MIT",
 	"packageManager": "npm@11.11.0",
 	"devDependencies": {
@@ -55,6 +55,6 @@
 		"node": ">=24"
 	},
 	"dependencies": {
-		"@xernerx/terminal": "^1.0.7"
+		"@xernerx/terminal": "^1.0.12"
 	}
 }
